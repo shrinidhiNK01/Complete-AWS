@@ -1,0 +1,114 @@
+Containerizing the app dependencies , Package Application with isolated environments called containers
+Avoid breaking of application moved from development to production
+Runs on any os, dependencies, version, conflicts, Scaling applications 
+Run multiple containers as Microservices
+
+AWS:-
+==============
+No need of Physical Hardware
+On demand Service
+Virtualised Cloud Service
+Auto Scaling & Instant Resource
+High Availibility and Backup
+Scalibility
+Security
+Flexibility
+Disaster Recovery
+
+Cloud Type:
+============
+1)Public cloud(AWS, Azure(Microsoft), GCP)
+2)Private cloud:- Single Organisation
+3)Community cloud
+4)Hybrid Cloud
+
+services:-
+==============
+1)EC2(Elastic Cloud Computing)
+2)s3(Simple storage service)
+3)VPC(Virtual Private Cloud)
+4)IAM (Identity &Access Management)
+5)Lambda
+6)RDS(Relational Database Service)
+
+Terms:-
+============
+1)Region
+2)Availibility Zone
+3)Edge Location
+
+Install:-
+=================
+1)AWS Account
+2)Install AWS CLI:- Manage AWS using Commondline Commonds, Automation, Secure, Cross Platform, Integration
+ powershell  >>> aws --version
+ 
+                                    I> IAM USER CREATION
+                                    =======================
+1)AWS-->IAM-->Users(in Dashboard)-->Create User-->NAME&checkmark->next->attach directly policies->Administrator Access ->next ->create user->download .csv file
+->click on the user created-> security credentials -> create access key->Application running outside aws->create access key ===>AWS Configuration
+
+AWS Configuration?
+=============================
+2)powershell in administrtor mode-> aws configure-> paste accesskey -> default region=us-east-1, default output format=> json ==> aws configure list
+
+EC2:- Elastic Cloud Computing
+==============================================
+It's like Virtual computer(Server) thats run in cloud
+We can start, stop, restart , deploy whenever we want
+its used to:- 1)Host webapps, websites
+              2)Run backend Servers (Nodejs, Django)
+              3)Testing or development remotly
+              4)Web servers, App servers, Dev/Test environment
+              5)AIML
+              6)Scheduled tasks
+              7)GPU, Train the Models
+
+
+EC2 has its own IP Address connected with internet, There is public IP, and Elastic IP
+EC2 Uses Elastic Block store(EBS) for storage
+EC2 is like our Personal computer 
+
+Steps to Implement:-
+==================================
+ec2->launch Instance-> Name(The name of a Machine u want to create)->AMI(Amazon Machine Image)(It tells what OS u want to use to run that machine) -> Architecture of Machine -> Instance type(All the feature os that Architecture(Memmory, cpu, gpu etc ))->Key pair(to connect securely with ur Instance)->Create a new Pair key -> RSA Encryption & and give a key pair name ->Networking(Allow Http Traffic from the Internet, it is required to host and access websites and Machines we built) -> Storage of the Machine we are creating (Storage=EBS(Hard disk)) -> Craete Instance ===>Machine Created , Once it is craeted AWS Starts Charging the bill , they ask Money for it, so stop it Immmediately  
+
+Connecting EC2 Instance with remote access using SSH Protocol
+=================================================
+SSH:- Secure Shell Protocol
+A Protocol used for secure communication over an unsecured network 
+Used to manage remote systems 
+
+powershell_in_the_folder_Where_key_Saved 
+         --> ssh -i "copy_the_path_of_key_pair where_u_saved\key_name.pem" ec2-user@IPV4_address(of Instance running)
+        eg:- ssh -i "D:\BRO\Devops\AWS\MyWebServerKey.pem" ec2-user@13.49.69.200 -->
+It will give Permission denied --> icacls "MyWebServerKey.pem" /inheritance:r(It means, we have removed inheritance , removed unwanted access ) ->icacls "MyWebServerKey.pem" /remove:g "Administrators" "SYSTEM" (remove groups like administrator grops, system groups) "username" (to check ur username, go to cmd type whoami it will give a path, the first name is the username)
+--> now grant access only to the current user , icacls "MyWebServerKey.pem" /grant:r sujan:F ---->icacls "MyWebServerKey.pem"(To check who are using this file) --> ssh -i "D:\BRO\Devops\AWS\MyWebServerKey.pem" ec2-user@13.49.69.200(Try this here, now it will be permitted, now we can do anything using aws instance in cli, Here we took remote access of EC2 using SSH, now no need of aws, we can do it using cli) 
+
+commonds after this :-
+=============================
+1)uname -a 
+2)exit = logout
+
+
+Using Apache web server on EC2 Machine to deploy/Host a static web page 
+=====================================================================
+step1:- Install apache web server , it is best for static websites
+aws console-> instance running in EC2 ->  powershell from the key folder-> ssh -i "MyWebServerKey.pem" ec2-user@IPV4_address
+Commonds:
+=========
+1)sudo yum update -y => (sudo = We are using Super user mode to get all the permissions , yum =Linux Package Manager(Install all the 
+----------------------   necessary packages , Package Installation, -y = Updates according to the versions))
+2)sudo yum install httpd -y =>To install Apache web server and installing yum 
+----------------------------
+3)sudo systemctl start httpd=>Linux Service Manager, Provides Service , start Apache web server
+4)sudo systemctl enable httpd
+5)sudi nano /var/www/html/index.html=>Text Editor like notepad, creates a file in those folders =>ctrl+s, ctr+x
+Go to chrome and type:- http://13.49.69.200 (IPV4 Address of EC2 Instance)
+6)scp -i "D:\BRO\Devops\AWS\MyWebServerKey.pem" -r "D:\BRO\Devops\Project" ec2-user@13.49.69.200:/tmp =>Run it normally, no need of ssh , Secured copy  
+  
+7)sudo rm -f /var/www/html/index.html   ==> rm(remove-), f(Forcefully)
+8)sudo cp -r  /tmp/Project/* /var/www/html/  => copy from 1st dir to 2nd dir, so that we can deploy it
+Go to chrome and type:- http://13.49.69.200 (IPV4 Address of EC2 Instance)
+
+
