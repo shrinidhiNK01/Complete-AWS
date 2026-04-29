@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AWS Full Stack App</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🔥 Deployed on AWS EC2</h1>
+        <p>Full Stack App (Nginx + Node + PM2)</p>
+
+        <h2 id="dynamicText">Click button to load message</h2>
+
+        <button onclick="getMessage()">Fetch Server Message</button>
+        <button onclick="changeColor()">Change Theme</button>
+        <button onclick="window.open('https://www.google.com')">Visit Google</button>
+
+        <input type="text" placeholder="Enter your name" id="nameInput">
+        <button onclick="greetUser()">Greet Me</button>
+
+        <p id="greeting"></p>
+    </div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

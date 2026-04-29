@@ -35,13 +35,22 @@ Terms:-
 ============
 1)Region
 2)Availibility Zone
-3)Edge Location
+3)Edge Location                                 
+
+Static Website:- 
+    HTML, CSS, JS(frontend only) -> Static websites
+
+Dynamic Website:- 
+    HTML, CSS, JS(frontend) + API + Database + Docker -> Dynamic websites
+
+                                                Static Website to AWS EC2 Instance
+                                                =======================================
 
 Install:-
 =================
 1)AWS Account
 2)Install AWS CLI:- Manage AWS using Commondline Commonds, Automation, Secure, Cross Platform, Integration
- powershell  >>> aws --version
+ powershell  >>> aws --version(install aws cli from https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
  
                                     I> IAM USER CREATION
                                     =======================
@@ -50,7 +59,7 @@ Install:-
 
 AWS Configuration?
 =============================
-2)powershell in administrtor mode-> aws configure-> paste accesskey -> default region=us-east-1, default output format=> json ==> aws configure list
+2)powershell in administrtor mode-> aws configure-> paste accesskey and secretkey -> default region=us-east-1, default output format=> json ==> aws configure list
 
 EC2:- Elastic Cloud Computing
 ==============================================
@@ -71,7 +80,7 @@ EC2 is like our Personal computer
 
 Steps to Implement:-
 ==================================
-ec2->launch Instance-> Name(The name of a Machine u want to create)->AMI(Amazon Machine Image)(It tells what OS u want to use to run that machine) -> Architecture of Machine -> Instance type(All the feature os that Architecture(Memmory, cpu, gpu etc ))->Key pair(to connect securely with ur Instance)->Create a new Pair key -> RSA Encryption & and give a key pair name ->Networking(Allow Http Traffic from the Internet, it is required to host and access websites and Machines we built) -> Storage of the Machine we are creating (Storage=EBS(Hard disk)) -> Craete Instance ===>Machine Created , Once it is craeted AWS Starts Charging the bill , they ask Money for it, so stop it Immmediately  
+ec2->launch Instance-> Name(The name of a Machine u want to create)->AMI(Amazon Machine Image)(It tells what OS u want to use to run that machine) -> Architecture of Machine -> Instance type(All the feature os that Architecture(Memmory, cpu, gpu etc ))->Key pair(to connect securely with ur Instance)->Create a new Pair key -> RSA Encryption & and give a key pair name ->Networking(Allow Http Traffic from the Internet, it is required to host and access websites and Machines we built) -> Storage of the Machine we are creating (Storage=EBS(Hard disk)) -> Create Instance ===>Machine Created , Once it is created AWS Starts Charging the bill , they ask Money for it, so stop it Immediately  
 
 Connecting EC2 Instance with remote access using SSH Protocol
 =================================================
@@ -79,11 +88,13 @@ SSH:- Secure Shell Protocol
 A Protocol used for secure communication over an unsecured network 
 Used to manage remote systems 
 
-powershell_in_the_folder_Where_key_Saved 
+powershell_in_the_folder_Where_key_Saved(Run as Administrtor)
+================================================================
          --> ssh -i "copy_the_path_of_key_pair where_u_saved\key_name.pem" ec2-user@IPV4_address(of Instance running)
-        eg:- ssh -i "D:\BRO\Devops\AWS\MyWebServerKey.pem" ec2-user@13.49.69.200 -->
-It will give Permission denied --> icacls "MyWebServerKey.pem" /inheritance:r(It means, we have removed inheritance , removed unwanted access ) ->icacls "MyWebServerKey.pem" /remove:g "Administrators" "SYSTEM" (remove groups like administrator grops, system groups) "username" (to check ur username, go to cmd type whoami it will give a path, the first name is the username)
---> now grant access only to the current user , icacls "MyWebServerKey.pem" /grant:r sujan:F ---->icacls "MyWebServerKey.pem"(To check who are using this file) --> ssh -i "D:\BRO\Devops\AWS\MyWebServerKey.pem" ec2-user@13.49.69.200(Try this here, now it will be permitted, now we can do anything using aws instance in cli, Here we took remote access of EC2 using SSH, now no need of aws, we can do it using cli) 
+        eg:- ssh -i "D:\SNK\AAAA\Complete-AWS\FirstLearning.pem" ec2-user@13.49.69.200 -->
+It will give Permission denied --> icacls "FirstLearning.pem" /inheritance:r(It means, we have removed inheritance , removed unwanted access ) ->icacls "FirstLearning.pem" /remove:g "Administrators" "SYSTEM" (remove groups like administrator grops, system groups) "username" (to check ur username, go to cmd type whoami it will give a path, the first name is the username)
+--> now grant access only to the current user , icacls "FirstLearning.pem" /grant:r "$($env:USERNAME):(R)" ---->icacls "FirstLearning.pem"(To check who are using this file) --> ssh -i "D:\SNK\AAAA\Complete-AWS\FirstLearning.pem" ec2-user@13.49.69.200(Try this here, now it will be permitted, now we can do anything using aws instance in cli, Here we took remote access of EC2 using SSH, now no need of aws, we can do it using cli) 
+
 
 commonds after this :-
 =============================
@@ -91,10 +102,10 @@ commonds after this :-
 2)exit = logout
 
 
-Using Apache web server on EC2 Machine to deploy/Host a static web page 
-=====================================================================
+Using Apache web server on EC2 Machine to deploy/Host a static web page (It is only for static websites not for dynamic web pages(like fastapi + database + nextjs and all)) but we can use it as a proxy server to deploy dynamic web pages in future using Nginx web server
+============================================================================================================================================
 step1:- Install apache web server , it is best for static websites
-aws console-> instance running in EC2 ->  powershell from the key folder-> ssh -i "MyWebServerKey.pem" ec2-user@IPV4_address
+aws console-> instance running in EC2 ->  powershell from the key folder-> ssh -i "FirstLearning.pem" ec2-user@IPV4_address
 Commonds:
 =========
 1)sudo yum update -y => (sudo = We are using Super user mode to get all the permissions , yum =Linux Package Manager(Install all the 
@@ -103,12 +114,86 @@ Commonds:
 ----------------------------
 3)sudo systemctl start httpd=>Linux Service Manager, Provides Service , start Apache web server
 4)sudo systemctl enable httpd
-5)sudi nano /var/www/html/index.html=>Text Editor like notepad, creates a file in those folders =>ctrl+s, ctr+x
+5)sudo nano /var/www/html/index.html=>Text Editor like notepad, creates a file in those folders =>ctrl+s, ctr+x
 Go to chrome and type:- http://13.49.69.200 (IPV4 Address of EC2 Instance)
-6)scp -i "D:\BRO\Devops\AWS\MyWebServerKey.pem" -r "D:\BRO\Devops\Project" ec2-user@13.49.69.200:/tmp =>Run it normally, no need of ssh , Secured copy  
+6)scp -i "D:\SNK\AAAA\Complete-AWS\FirstLearning.pem" -r "D:\SNK\AAAA\AWS-copy" ec2-user@13.49.69.200:/tmp =>Run it normally, no need of ssh , Secured copy (scp=>Secured copy protocol) 
   
 7)sudo rm -f /var/www/html/index.html   ==> rm(remove-), f(Forcefully)
-8)sudo cp -r  /tmp/Project/* /var/www/html/  => copy from 1st dir to 2nd dir, so that we can deploy it
+8)sudo cp -r  /tmp/AWS-copy/* /var/www/html/  => copy from 1st dir to 2nd dir, so that we can deploy it(Copy project files to web root (for static hosting))    / \
+                     |
+                folder_name(AWS-copy)   
+9)sudo systemctl restart httpd => ( restart after the changes we made, so that the changes are updated)
 Go to chrome and type:- http://13.49.69.200 (IPV4 Address of EC2 Instance)
+10)STOP Appache web server:- sudo systemctl stop httpd 
+                             sudo systemctl status httpd
+                             sudo systemctl disable httpd(prevent from starting httpd automatically)
 
+        Nginx Server (It is used for both static and dynamic websites, but mainly used for dynamic websites)
+        Nginx better than apache because it is faster and more efficient and it is used for both static and dynamic websites
+11)Install Nginx server:- sudo dnf install nginx -y =>To install Nginx web server and installing dnf
+                             sudo systemctl start nginx
+                             sudo systemctl status nginx
+                             sudo systemctl enable nginx
+                
+                             //Now install nodejs in it:- curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
+                             sudo dnf install nodejs -y
+                             node -v  (it means we installed nodejs inside ec2 instance)
+                             npm -v     (package manager also got installed automatically)
+                             
+                             //now copy all the files from ur folder to ec2 instance folder :- scp -i "D:\SNK\AAAA\Complete-AWS\FirstLearning.pem" -r "D:\SNK\AAAA\AWS-copy" ec2-user@13.49.69.200:/home/ec2-user
 
+                             //now inside ur folder in ec2 instance:- cd AWS-copy
+                                                                      npm i  (for this the folder should have npm init -y and npm install express)
+
+                             whatever u add to ur file move it to ec2 instance folder:- scp -i "D:\SNK\AAAA\Complete-AWS\FirstLearning.pem" -r "D:\SNK\AAAA\AWS-copy" ec2-user@13.49.69.200:/home/ec2-user
+                             
+                             run the app in background:- sudo npm install -g pm2
+                             pm2 start index.js
+                             pm2 startup
+                             pm2 save
+                             pm2 status
+                             
+                             connect this project to nginx:- sudo nano /etc/nginx/nginx.conf
+                             //now add all the following configuration => (YOUR_SERVER_IP = paste your ec2 instance ip address here)
+                             server {
+                                listen 80;
+                                server_name YOUR_SERVER_IP;
+
+                                location / {
+                                    proxy_pass http://localhost:3000;  (The port number where ur node app is running)
+                                    proxy_http_version 1.1;
+                                    proxy_set_header Upgrade $http_upgrade;
+                                    proxy_set_header Connection 'upgrade';
+                                    proxy_set_header Host $host;
+                                    proxy_cache_bypass $http_upgrade;
+                                }
+                            }
+                         //this will publically expose the project and it is in background
+                         //If u stop and start nginx, the app will still be running because we used pm2 startup
+                         //If u reboot ec2 instance, the app will not run, so we use pm2 startup to make it run automatically on reboot
+                         //If u want to stop pm2, use pm2 stop all
+                         //If u want to save the processes in pm2, use pm2 save
+                         //If u want to list all the processes in pm2, use pm2 list
+                         
+
+                            //save it and restart nginx
+                            sudo systemctl restart nginx
+                            
+                            
+                            //To stop nodejs server
+                            pm2 stop all =>to stop all the processes
+                            pm2 stop 0 =>to stop the 0th process
+
+                             Go to chrome and type:- http://13.49.69.200 (IPV4 Address of EC2 Instance)
+                             sudo systemctl disable nginx
+                             sudo dnf remove nginx -y
+
+If u stop ec2 instance and start it again, then the IP address will change, so we need to update the IP address in the nginx.conf file and restart the nginx server
+1)ssh -i "FirstLearning.pem" ec2-user@<NEW-IP>
+2)cd AWS-copy
+3)pm2 delete all
+4)pm2 start index.js
+5)pm2 save
+6)pm2 status
+7)sudo systemctl restart nginx
+8) Go to chrome and type:- http://13.49.69.200 (IPV4 Address of EC2 Instance)

@@ -1,0 +1,46 @@
+S3:-Simple Storage Service
+===========================
+It is used to store static files like images, videos, css, js, documents,backups,logs,webapps,mobile apps,websites etc online
+Access files using public URL
+Files are stored in the form of Buckets like folders
+
+Bucket name should be unique worldwide and no uppercase letters or special characters are allowed in the bucket name
+It is highly Scalable, Durable, and Highly available
+S3 has 99.999999999% durability and 99.99% availability
+S3 Standard
+1. S3 Standard
+2. S3 Intelligent-Tiering
+3. S3 Standard-IA
+4. S3 One Zone-IA
+5. S3 Glacier Instant Retrieval
+6. S3 Glacier Flexible Retrieval
+7. S3 Glacier Deep Archive
+
+Each file is called as an object in S3
+
+No need to pay for storage space or storage limit (they have virtual storage that can be increased)
+easy to integrate with other AWS services and nodejs,react,Firebase, Django, Laravel and many more
+low cast , pay as u go pricing 
+
+aws=>s3=>create bucket=>General Purpose + Block all public access(for private) +Bucket name+ ACLs disabled + uncheck the block all public access(for public)+check=>I acknowedge that the bucket may become public +Version all(optional)=>create bucket=> upload all the files or folder=>open the file index.html => in action => make public using ACL => make public => 
+we can host any static website on s3 bucket, if we want to host dynamic websites we can use cloudfront infront of s3 bucket to cache the static content and serve it to the users
+
+copy url of that uploaded file and paste it in url , u can access those files or folders publicly
+
+bucket created->permissions->bucket policy ->edit ->
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowPublicRead",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::nextjs-s3-project/*"
+    }
+  ]
+}
+
+save changes
+
+ 
