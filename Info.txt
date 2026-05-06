@@ -20,11 +20,28 @@ Cloud Type:
 1)Public cloud(AWS, Azure(Microsoft), GCP)
 2)Private cloud:- Single Organisation
 3)Community cloud
-4)Hybrid Cloud
+4)Hybrid Cloud:- mix of public and private cloud thats orchastrated to run on a single task
+facilitates cost optimization, deeper control,run apps where needed,cloud as backup,disaster recovery,security,development,testing
+5)Multicloud
+
+Cloud as a Service model:-
+====================================
+SAAS:-Software as a Service:-
+--------------------------------
+network+storage+hardware+virtualization+OS+Middleware+runtime+data+App  =>Premises
+
+IAAS:-Infrastructure as a Service:-
+--------------------------------
+network+storage+hardware+virtualization
+
+PAAS:-Platform as a Service:-
+--------------------------------
+network+storage+hardware+virtualization+OS+Middleware+runtime
+
 
 services:-
 ==============
-1)EC2(Elastic Cloud Computing)
+1)EC2(Elastic Cloud Computing):-Virtual Machine in the cloud
 2)s3(Simple storage service)
 3)VPC(Virtual Private Cloud)
 4)IAM (Identity &Access Management)
