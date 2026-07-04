@@ -1,0 +1,180 @@
+Why do we need Virtual Machines 
+=====================================
+
+1)Application
+  -----------
+  OS
+  ---
+  Hardware(RAM,SSD,CPU)
+
+2)Applications 
+  ------------
+  any OS 
+  ------
+  virtualization
+  --------------
+  any OS 
+  ------
+  Hardware 
+
+3)Hypervisor is a software layer that creates and runs multiple VM'S ,eg:- Virtual Box 
+Make different Virtual Machines by sharing the existing resources
+VirtualBox share hardware resources from host OS 
+Separate set of virtual CPU,RAM,Storage 
+VM'S are fully Isolated(Independent of hosted OS)
+We dont need new resources  to use different OS 
+No risk of any issues with ur primary OS 
+Test an app on different OS 
+ 
+4)We dont need any new resources to use different OS 
+No risk of any issues with primary OS
+Testing any app on different OS
+
+5)Hypervisor :- 1)Bare Metal :- Hosted on Hardware , direct installed => Used by Cloud Providers and Enterprise Servers 
+                2)Hosted :- Hypervisor hosted on OS 
+
+
+Uses:-
+========
+Cheap,
+Reduce workload,Space,Energy 
+Easy Backup using snapshot
+Easy recovery 
+
+
+Cloud Computing:=- Access computing resources (like servers,storage, databases, and software) over the internet, rather than owning and
+maintaining physical hardware.
+eg:- AWS,Azure,GCP,IBM,Oracle
+
+Virtualization is the process of creating multiple
+simulated environments or virtual machines from a
+single physical hardware system, enabling more
+efficient resource use.
+
+It is like taking a car rent than purchasing a complete rent of MNC's Systems
+If we want to create a company , its not necessary to purchase any hardwares, physical devices and all, instead of that we will take rent from companies for the resources,time we used from them , if we scale our company big , still not necessary to purchase servers , we can run all things from cloud companies, it has all load balancing , users maintainace etc etc 
+
+Types of Cloud:-
+=====================
+1)IAAS:- Infrastructure as a service :- laaS contains the basic building blocks for cloud IT. It typically provides
+access to networking features, computers (virtual or on dedicated
+hardware), and data storage space. laaS gives you the highest level of
+flexibility and management control over your IT resources. It is most
+similar to the existing IT resources with which many IT departments and
+developers are familiar.
+eg:-Our own room/House
+
+
+2)PAAS:- Platform as a service :- 
+eg:- PG
+
+3)SAAS:- Software as a Service :-SaaS provides you with a complete product that is run and managed by
+the service provider. In most cases, people referring to SaaS are referring
+to end-user applications (such as web-based email). With a SaaS
+offering, you don't have to think about how the service is maintained or
+how the underlying infrastructure is managed. You only need to think
+about how you will use that particular software. 
+eg:- Hostel 
+
+DIFFERENT TYPES OF CLOUD DEPLOYMENTS:
+=====================================
+. Public Cloud: A shared cloud environment where multiple
+users can access services over the internet, like AWS or
+Azure.
+
+. Private Cloud: A dedicated cloud environment for one
+organization, offering more control and privacy.
+
+. Hybrid Cloud: A mix of public and private clouds, allowing
+data and applications to move between them for flexibility.
+
+
+
+FEW FEATURES COMMONLY OFFERED BY CLOUD PROVIDERS:
+==================================================
+. COMPUTE SERVICES
+· STORAGE SERVICES
+· DATABASE SERVICES
+. NETWORKING SERVICES
+· CONTAINER SERVICES
+. SERVERLESS COMPUTING
+. MACHINE LEARNING SERVICES
+· IDENTITY AND ACCESS MANAGEMENT (IAM)
+. MONITORING AND LOGGING
+. CONTENT DELIVERY NETWORK (CDN)
+. BACKUP AND DISASTER RECOVERY
+. SECURITY AND COMPLIANCE TOOLS
+· VIRTUAL PRIVATE CLOUD (VPC)
+· DATA ANALYTICS SERVICES
+· API MANAGEMENT
+
+AWS:-
+=============
+AWS offers a vast range of services, including
+compute power, storage solutions, networking,
+databases, and much more.
+
+It offers a pay-as-you-go model, allowing you to
+pay only for what you use, which is ideal for
+optimizing costs
+
+it also have IOT services 
+
+What makes AWS so special?
+====================================
+Scalability, Global Reach, Reliability, Security
+
+Popular Services Provided by AWS
+=====================================================
+Most popular ones include EC2 for scalable compute
+capacity,
+S3 for highly reliable storage, 
+RDS for managed databases, 
+Lambda for serverless computing,
+and CloudFront for content delivery.
+
+AWS IAM
+======================
+AWS Identity & Access Management
+IAM is a service that helps you securely control
+access to AWS resources.
+
+It allows you to manage users, roles, and permissions
+to define who can access what within your AWS
+environment.
+
+. Free Service: IAM is offered at no additional cost
+· Global Service
+. Root account created by default, shouldn't be
+used or shared
+
+. Create Users: You can create individual user accounts for people
+who need access to your AWS resources.
+
+. Assign Permissions: You can assign specific permissions to users,
+groups, or roles to control what actions they can perform on AWS
+services.
+
+. Create Groups: You can group users together and assign permissions
+to the group, making management easier for multiple users.
+
+Steps:-
+============
+login as a root user , which is like a global ,
+1)Create a IAM user 
+2)Create a group , provide all access(Administrator access) 
+3)go into the IAM user and add the user to the group created 
+4)go to the IAM created , Security Credentials , click on the console sign in link ,it will gve an AccountID automatically , save it 
+5)Next time u can directly sign in to AWS without signing in as root using that AccountID
+
+. Create Roles: You can create roles to assign temporary permissions to AWS
+services or users, especially useful for securely managing permissions
+across different AWS resources.
+
+. Define Policies: You can create and attach custom policies to define fine-
+grained permissions for controlling access to AWS resources.
+
+. Manage Federated Access: IAM allows integrating with external identity
+providers (like Active Directory) for centralized management of user
+access across AWS.
+

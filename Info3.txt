@@ -1,0 +1,38 @@
+MFA
+============
+MFA (Multi-Factor Authentication) is an extra layer of
+security that requires users to provide two or more
+forms of verification, like a password and a code from
+their phone, to access their accounts.
+
+Ways of accessing AWS Console
+=============================
+1. AWS Management Console
+2. AWS Command Line Interface (CLI)
+3. AWS Software Development Kit (SDK)
+4. AWS Mobile SDK
+5. AWS Tools for PowerShell
+6. AWS Application Programming Interface (API)
+7. AWS CloudShell
+
+. The AWS Management Console provides a graphical, web-
+based approach.
+
+. The AWS CLI provides a command-line, scripting approach.
+
+. AWS SDKs and APIs offer programmatic, code-based access,
+allowing users to integrate AWS directly into their
+applications.
+
+install aws cli 
+===============
+aws
+aws --help 
+
+If we use aws sdk /AWS PowerShell /AWS CLI , we have to get AWS Access Key
+I am User Created---> Security Credentials---> Access Keys ----->CLI(I understand) /other u want to use aws access key --->Create access key ------>done 
+
+then, go to cmd --> aws configure --> paste the credentials --> region:-
+look at the current region in aws dashboard like eu-north-1 --->enter
+
+then check "aws iam list-users" in cmd

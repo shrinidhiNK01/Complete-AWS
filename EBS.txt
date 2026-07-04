@@ -1,0 +1,69 @@
+AWS EBS is a cloud-based storage service that
+provides durable, high-performance block
+storage for use with Amazon EC2 instances.
+
+It works like a virtual hard drive, allowing you
+to store and access data even when your EC2
+instances are stopped or terminated.
+
+For example, if you're hosting a MySQL or PostgreSQL
+database, you need reliable, high-performance
+storage to handle frequent read/write operations.
+
+EBS provides persistent, fast storage that ensures
+your data is saved even if the EC2 instance is stopped
+or restarted, making it ideal for database workloads.
+
+Important points about EBS
+
+· Region & AZ specific
+· Build-in Redundancy
+. EBS volumes are automatically replicated within the same Availability
+Zone to prevent data loss due to hardware failures.
+
+. Different Volume Types
+gp2/3, io1/2, st1, sc1
+. Allow Encryption & Snapshot for backup
+
+· Scalable (Volume can be resizeable)
+o No data loss will occur during resizing.
+No need to restart the EC2 instance during the process.
+
+when u make EC2 instance , it will automatically build EBS(Elastic Block Store) it will be inside EC2 slide down There is Elastic Block Store section where there are volumes
+
+In ec2 instance -----> storage ----->There is EBS(Block devices)
+Terminate on delete = means ,whenever a ec2 instance gets deleted the EBS also will get deleted automatically => U can adjust it while making instance inside configure storage = advanced = expand volumes = u can make delete on termination yes or no  ,then launch instance
+
+Creating EBS and Attaching to EC2 Instance
+=============================================
+1)Connect EC2 Instance 
+        commonds
+        -----------
+        1)lsblk = to see memory partition
+2)u can make ur own volume = create volume ----> 5gib ---> Availability zone should be same as ec2 instance that u want to connect ---> create volume ----> action = Attach volume ---> Instance --> click on below dropdowned Instance ----> give 1st recommonded device name ----> attach volume 
+
+3)Now go to running instance , click on instance id ---> click on storage -----> u will see ur created volume
+now u can see changes in the memory partition in "lsblk" in ssh connect
+
+we can modify or resize volume ---> actions ----> modify volume ---> change anything ---> modify 
+similarly , we can detach and delete EBS volume 
+EBS Snapshot
+
+What if we want to copy our data to
+· New AZ
+. New Region
+
+EBS Snapshot:- It is used to take the backup of EBS volume , if anything goes wrong with volume , we can retrive the volume again using Snapshot
+action---->create Snapshot ---> snapshot
+go to Snapshots in EC2>EBS , CLICK ON THE SNASHOT VOLUME U CREATED ,-------> Actions-------> Create volume from snapshot---> now change the availability zone to some other zone (so that now the volume/backup of the instance is copied and pasted into other zone data center , backup is now shifted to other datacenter ) ---> create volume
+
+now go to Volumes> EBS u will see a new snapshot volume thats in other data center u created
+now lets make a ec2-backup instance to run this volume thats present on differennt data center 
+1)make new instance name
+2)go to network settings ---> edit ---> subnet --->select the datacenter subnet u created----> create instance
+
+now go to Volume>EBS ----> Look at the Available volume click on it ----> action ----> Attach volume ---> Instance ---> select EC2-backup instance ----> a device name from first ---> attach volume
+
+connect EC2-backup ==> paste - 1) sudo file -s /dev/nvmelnlpl(it can be anything , replace it with the 1st name under main name) 
+2)sudo mkdir /mnt/mybackup
+3)sudo mount -o nouuid /dev/nvme1n1p1 /mnt/mybackup/

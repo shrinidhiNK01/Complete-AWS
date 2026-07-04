@@ -1,0 +1,133 @@
+AWS EC2 (Amazon Elastic Compute Cloud) is a cloud
+service that provides resizable virtual servers, called
+instances, which you can use to run applications.
+
+Imagine you're running a business and need a server
+to host your website or application.
+Instead of buying and managing physical servers,
+AWS EC2 lets you rent virtual servers in the cloud.
+These virtual servers are called instances. 
+
+You Can Configure
+several options ...
+=======================
+OS
+RAM
+CPU
+Disk Space
+Network/Firewall
+
+. Instance Type: Select the hardware capacity (e.g., CPU, memory).
+. AMI (Amazon Machine Image): Choose the operating system and software (linux, mac, windows).
+
+· Storage: Configure the type and size of storage (e.g., EBS volume).
+
+. Security Groups: Set up firewall rules to control inbound/outbound traffic.
+
+. Key Pair: Create or use an existing key pair for SSH access.
+
+· Network Settings: Configure VPC, subnet, and assign public or
+
+private IP addresses.
+
+· IAM Role: Attach an IAM role for permissions to access other AWS
+
+resources.
+
+. User Data: Add scripts to be executed when the instance starts.
+
+· Elastic IP: Optionally associate a static IP address for consistent
+
+public access.
+
+1)name
+2)app and OS
+3)Architecture 
+4)Instance type 
+5)create new key pair :- name, RSA, .pem, 
+6)Network settings -> Allow SSH traffic, 
+Allow HTTP traffic from the internet
+
+· Network Settings: Configure VPC, subnet, and assign public or
+
+private IP addresses.
+
+. IAM Role: Attach an IAM role for permissions to access other AWS
+
+resources.
+
+. User Data: Add scripts to be executed when the instance starts.
+
+· Elastic IP: Optionally associate a static IP address for consistent
+
+public access.
+
+7)Paste it in Advanced:-
+===========================
+#!/bin/bash
+sudo yum update -y
+
+# Install Apache web server (httpd)
+sudo yum install -y httpd
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+# Create a simple HTML file to verify the web server is running
+echo "<html><h1>Welcome to Apache Web Server on Amazon Linux !< /h1></html>" >
+/var/www/html/index.html
+
+Security Groups: Network firewall rules that control
+inbound and outbound traffic for instances.
+
+Instance---->security --------> click on Security groups (sg-0e514ed3bd23db0d2 (launch-wizard-4) ), there we can create inbound and outbound rules
+1)Inbound rules
+1)Outbound rules
+
+Important points about security groups
+
+· Region specific
+. Only 'Allow' rule (but no deny rule)
+. All inbound traffic blocked and outbound allowed by default.
+
+· You define rules for specific:
+o Protocols (like HTTP, HTTPS, SSH, etc.).
+. Port numbers (e.g., port 80 for HTTP, port 22 for SSH).
+IP addresses or ranges (e.g., allow traffic only from a specific IP or range of IPs).
+
+. If you allow incoming traffic on a specific port (e.g., port 80 for HTTP), the
+outgoing response traffic is automatically allowed without an explicit
+outbound rule.
+
+. HTTP (Port 80) - Unencrypted web traffic.
+. HTTPS (Port 443) - Encrypted web traffic (SSL/TLS).
+· SSH (Port 22) - Secure remote access to servers (Linux/Unix).
+· FTP (Port 21) - File Transfer Protocol (unsecured).
+. SFTP (Port 22) - Secure File Transfer Protocol.
+. SMTP (Port 25) - Simple Mail Transfer Protocol (email sending).
+. RDP (Port 3389) - Remote Desktop Protocol (Windows remote access).
+. MySQL (Port 3306) - MySQL database connections.
+. PostgreSQL (Port 5432) - PostgreSQL database connections.
+. DNS (Port 53) - Domain Name System (converts domain names to IP
+addresses).
+
+How to SSH into EC2 instance?
+=================================
+SSH allows you to control/access a remote
+machine.
+
+select ec2 instance --> connect --> connect -> it will open cli with ssh (It is our VM , Virtual Server)
+
+----------------------------------------------------------------------------------------------------------------------------------
+· Case 1: Small Website or Blog
+Suitable Type: t3.micro or t3.small (General Purpose)
+
+. Case 2: E-Commerce Application
+Suitable Type: m5.large or m5.xlarge (General Purpose)
+
+· Case 3: Real-Time Video Rendering and Streaming (Accelerated
+Computing)
+· Instance Type: g5.12xlarge or g5.24xlarge
+
+. Case 4: In-Memory Database for Real-Time Analytics (Memory
+Optimized)
+· r6g.16xlarge or x2idn.32xlarge (Memory Optimized)
