@@ -1,0 +1,199 @@
+Nginx is a high-performance web server that
+delivers websites, handles requests, and
+can also work as a reverse proxy, load
+balancer, and caching tool to manage and
+scale web traffic efficiently.
+
+Installing Nginx
+=====================
+1)sudo yum install nginx -y
+
+Start Nginx service
+======================
+2)sudo systemctl start/stop/reload nginx
+
+· Access Default website from browser
+
+Nginx config
+==================
+3)cd /etc/nginx
+4)ls 
+5)vi nginx.conf  ===> to come out :- esc + :x 
+
+Default webpage
+===================
+6)cd /usr/share/nginx/html
+7)ls 
+
+Now create static Web App in ur Nginx 
+======================================
+1) u should be in /usr/share/nginx/html 
+pwd => to check ur directory 
+2)sudo rm -rf *  => deletes all the files 
+3)sudo mkdir MyWebApp.com
+4)ls 
+5)cd MyWebApp.com 
+6)pwd 
+7)sudo vi index.html 
+write any html code it will show the webapp 
+8)cd /etc/nginx 
+9)sudo cp nginx.conf nginx.conf_bkp
+
+10)Create Nginx Config from scratch 
+=======================================
+a)sudo rm nginx.conf 
+b)sudo vi nginx.conf 
+---------------------------
+events {}
+http{
+
+server{
+
+listen 80;
+root /usr/share/nginx/html/MyWebApp.com/;
+
+}
+}
+
+c)sudo nginx -t => test the config file 
+d)sudo systemctl reload nginx.service 
+e)sudo systemctl status nginx.service 
+now reload ur instance ip address website 
+
+10)create about section in that webapp:-
+========================================
+a)sudo cd /usr/share/nginx/html/MyWebApp.com
+b)pwd
+c)sudo mkdir about 
+d)cd about 
+e)cp ../index.html .     => copy index.html from previous folder to about folder 
+f)pwd => /usr/share/nginx/html/MyWebApp.com/about 
+g)ls => index.html 
+h)sudo vi index.html => code for about section => come out(:w! then :q)
+
+Hosting Multiple websites with nginx 
+=========================================
+0)sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup
+1)Make another folder => sudo mkdir MyWebApp2.com inside cd /usr/share/nginx/html 
+2)pwd => /usr/share/nginx/html/MyWebApp2.com
+3)sudo vi index.html  => insert html file 
+4)sudo vi style.css => insert css file 
+5)sudo vi script.js => insert js file 
+6)sudo vi /etc/nginx/nginx.conf 
+=============================
+events {}
+
+http{
+
+include /etc/nginx/mime.types;
+default_type application/octet-stream;
+
+server{
+
+listen 80;
+root /usr/share/nginx/html/;
+}
+#MyWebApp2.com
+server{
+
+listen 80;
+root /usr/share/nginx/html/MyWebApp2.com/;
+
+}
+
+}
+
+7)sudo nginx -t 
+8)sudo systemctl reload nginx.service 
+
+Nginx Configure Custom domain 
+===============================
+1)Register a domain name.(Purchase a domain name from Hostinger)
+2)connect domain name to our project 
+======================================
+a)copy public ip of the nginx server ec2 instance
+b)hostinger -> home -> domain name -> manage -> redirects to DNS/NmaeServers -> Manage DNS records (Type = A, Points to = Paste the copied public IP of the ec2 instance)-> Add record 
+c)now search ur webapp hosted in any system, U will see ur website running 
+
+Nginx HTTPS and SSL :-
+=========================
+HTTPS is a secure version of HTTP that encrypts
+data between your browser and a website,
+making it safe from hackers.
+
+It uses SSL/TLS to protect sensitive information
+like passwords and credit card details.
+
+Purchasing the domain name is must 
+======================================
+1)Lets Encrypt website 
+2)server connect = sudo dnf install certbot python3-certbot-nginx -y 
+3)certbot --version
+4)sudo systemctl stop nginx.service 
+5)sudo certbot certonly -- standalone -d yourdomain.com
+6)sudo vi /etc/nginx/nginx.conf
+======================================
+events {}
+
+http {
+    include /etc/nginx/mime.types;
+
+    server {
+        listen 8080;
+        root /usr/share/nginx/html/example.com/;
+        index index.html;
+    }
+
+    # myexamplewebsite.xyz
+    server {
+        listen 443 ssl;
+        http2 on;
+
+        server_name myexamplewebsite.xyz www.myexamplewebsite.xyz;
+
+        root /usr/share/nginx/html/myexamplewebsite.com/;
+        index index.html;
+
+        ssl_certificate /etc/letsencrypt/live/myexamplewebsite.xyz/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/myexamplewebsite.xyz/privkey.pem;
+
+        ssl_protocols TLSv1.2 TLSv1.3;
+
+        error_page 404 /404.html;
+
+        location / {
+            try_files $uri $uri/ =404;
+        }
+
+        access_log /var/log/nginx/myexamplewebsite.xyz.access.log;
+        error_log /var/log/nginx/myexamplewebsite.xyz.error.log;
+    }
+}
+7)sudo nginx -t
+8)sudo systemctl start nginx.service
+8)sudo systemctl status nginx.service
+9)go to ec2 instance -> security -> security group -> edit inboud rules ->add HTTPS,443,Anywhere => now check ur website https://MyWebApp2.com , it will work 
+10)go to cdn77.com website -> TLS-Test -> Paste ur web link -> It will show how good ur website is 
+
+Nginx Reverse Proxy :-
+==========================
+An Nginx reverse proxy acts as an intermediary
+between clients and backend servers.
+
+It forwards client requests to the appropriate
+server, handles responses, and provides benefits
+like load balancing, caching, and security.
+
+1)create an instance (diselect ssh traffic )=> in user data paste it =>
+==============================================================
+#!/bin/bash
+sudo yum update -y
+
+# Install Apache web server (httpd)
+sudo yum install -y httpd
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+# Create a simple HTML file to verify the web server is running
+echo "<html><h1>This is Website 1</h1></html>" >
+/var/www/html/index.html

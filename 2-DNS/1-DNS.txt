@@ -1,0 +1,212 @@
+DNS, or Domain Name System, is the internet
+service that translates human-friendly domain
+names like www.example.com into machine-
+readable IP addresses.
+
+
+                     www.google.com 192.168.0.1
+ domain name ----->  www.hellloo.com 192.168.0.2 -----> Servers
+                     www.example.com 192.168.0.3
+                    ------------------------------
+                            DNS Server
+
+
+Setting up ur Apache Web server 
+==================================
+Installation (Amazon Linux EC2)
+
+AMAZON LINUX EC2 - APACHE WEB SERVER SETUP
+================================================
+
+STEP 1: CONNECT TO YOUR EC2 INSTANCE
+------------------------------------
+
+Connect to your Amazon Linux EC2 instance using SSH or
+EC2 Instance Connect.
+
+After connecting, run the following commands in the EC2 terminal.
+
+
+STEP 2: INSTALL APACHE WEB SERVER
+--------------------------------
+
+For Amazon Linux 2023:
+
+1)sudo dnf update -y
+2)sudo dnf install httpd -y
+
+NOTE: Use the commands for your EC2 operating system version.
+
+
+STEP 3: START / STOP / CHECK STATUS OF APACHE
+---------------------------------------------
+
+Start Apache:
+-------------
+3)sudo systemctl start httpd
+
+Stop Apache:
+sudo systemctl stop httpd
+
+Restart Apache:
+sudo systemctl restart httpd
+
+Check Apache status:
+sudo systemctl status httpd
+
+Enable Apache to start automatically at boot:
+----------------------------------------------
+4)sudo systemctl enable httpd
+
+
+STEP 4: ENABLE HTTP IN THE FIREWALL
+-----------------------------------
+
+Amazon Linux 2023 commonly uses firewalld only if it has
+been installed and configured.
+
+Check whether firewalld is installed:
+sudo systemctl status firewalld
+
+If firewalld is installed and running, allow HTTP traffic:
+
+sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --reload
+
+Verify the firewall rule:
+sudo firewall-cmd --list-services
+
+NOTE:
+If firewalld is not installed or running, do not assume
+these commands are required. Configure the EC2 Security
+Group to allow HTTP traffic on TCP port 80.
+
+
+STEP 5: WEB SERVER DOCUMENT ROOT
+--------------------------------
+
+Default website directory:
+
+5)cd /var/www/html/
+6)ls 
+
+Default web page:
+
+/var/www/html/index.html
+
+Create or edit the web page:
+---------------------------------
+7)sudo nano /var/www/html/index.html
+
+8)Paste the following HTML:
+---------------------------
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Amazon Linux Web Server</title>
+</head>
+<body>
+    <h1>Welcome to My Apache Web Server!</h1>
+    <p>Apache is running successfully on Amazon Linux EC2.</p>
+</body>
+</html>
+
+Save and exit nano:
+Press CTRL + O
+Press ENTER
+Press CTRL + X
+
+9)sudo systemctl restart httpd
+9)sudo systemctl status httpd
+
+STEP 6: APACHE CONFIGURATION FILE
+---------------------------------
+
+Main Apache configuration file:
+
+/etc/httpd/conf/httpd.conf
+
+Open the configuration file:
+
+sudo nano /etc/httpd/conf/httpd.conf
+
+NOTE:
+Do not change configuration settings unless needed.
+
+After making configuration changes, restart Apache:
+
+sudo systemctl restart httpd
+
+
+STEP 7: CONFIGURE AWS SECURITY GROUP
+------------------------------------
+
+Open the AWS Management Console.
+
+1. Go to EC2.
+2. Select Instances.
+3. Select your running instance.
+4. Open the Security tab.
+5. Click the Security Group.
+6. Select Edit inbound rules.
+7. Add the following rule:
+
+   Type: HTTP
+   Protocol: TCP
+   Port: 80
+   Source: Anywhere-IPv4 (0.0.0.0/0)
+
+8. Save the rules.
+
+NOTE:
+Allowing traffic from anywhere makes your website publicly
+accessible. For production systems, restrict access when possible.
+
+
+STEP 8: TEST THE WEB SERVER
+---------------------------
+
+Check that Apache is running:
+
+sudo systemctl status httpd
+
+Get your public IP address:
+
+curl -s https://checkip.amazonaws.com
+
+Copy the public IP address and open this URL in your browser:
+
+http://YOUR_EC2_PUBLIC_IP
+
+Replace YOUR_EC2_PUBLIC_IP with your actual EC2 public IP address.
+
+You should see:
+
+Welcome to My Apache Web Server!
+
+Apache is running successfully on Amazon Linux EC2.
+
+
+STEP 9: CHECK APACHE VERSION
+----------------------------
+
+httpd -v
+
+
+STEP 10: VIEW APACHE LOGS
+-------------------------
+
+Access log:
+
+sudo tail -f /var/log/httpd/access_log
+
+Error log:
+
+sudo tail -f /var/log/httpd/error_log
+
+Press CTRL + C to stop viewing the logs.
+
+
+================================================
+END OF AMAZON LINUX APACHE WEB SERVER SETUP
+================================================

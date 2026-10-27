@@ -1,0 +1,14 @@
+step1 :- Host apache web server on ec2 instance 
+step2 :- 
+============
+Apache server frontend and act as reverse proxy to backend 
+
+Note:-
+===========
+Forward proxy :- server that sits infront of client web browser whic protects and regulates outbound traffic for clients 
+
+Reverse Proxy:- server that sits infront of of backend web servers intercepting incoming requests from clients and forwording them to appropriate origin server , protects, hides, and manages inbound traffic for servers .
+
+Inbound traffic:- requests going from clients to server 
+Outbound traffic :- requests coming from users to clients 
+

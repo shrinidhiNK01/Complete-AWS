@@ -26,12 +26,14 @@ We dont need new resources  to use different OS
 No risk of any issues with ur primary OS 
 Test an app on different OS 
  
+Advantages:-
+===============
 4)We dont need any new resources to use different OS 
 No risk of any issues with primary OS
 Testing any app on different OS
 
-5)Hypervisor :- 1)Bare Metal :- Hosted on Hardware , direct installed => Used by Cloud Providers and Enterprise Servers 
-                2)Hosted :- Hypervisor hosted on OS 
+5)Types of Hypervisor :- 1)Bare Metal :- Hosted on Hardware , direct installed => Used by Cloud Providers and Enterprise Servers 
+                         2)Hosted :- Hypervisor hosted on OS 
 
 
 Uses:-
@@ -42,9 +44,32 @@ Easy Backup using snapshot
 Easy recovery 
 
 
-Cloud Computing:=- Access computing resources (like servers,storage, databases, and software) over the internet, rather than owning and
+Cloud Computing:=- 
+=========================
+Access computing resources (like servers,storage, databases, and software) over the internet, rather than owning and
 maintaining physical hardware.
 eg:- AWS,Azure,GCP,IBM,Oracle
+
+
+some cloud providers:-
+=======================
+. Amazon Web Services (AWS)
+. Microsoft Azure
+
+. Google Cloud Platform (GCP)
+. IBM Cloud
+
+. Oracle Cloud
+
+. Alibaba Cloud
+
+. DigitalOcean
+· Salesforce
+
+. VMware Cloud
+
+. Rackspace Cloud
+
 
 Virtualization is the process of creating multiple
 simulated environments or virtual machines from a
@@ -161,7 +186,8 @@ to the group, making management easier for multiple users.
 Steps:-
 ============
 login as a root user , which is like a global ,
-1)Create a IAM user 
+
+1)Create a IAM user , give a name , custom password, unclick users must create a new password at next sign-in- recommended ->next 
 2)Create a group , provide all access(Administrator access) 
 3)go into the IAM user and add the user to the group created 
 4)go to the IAM created , Security Credentials , click on the console sign in link ,it will gve an AccountID automatically , save it 

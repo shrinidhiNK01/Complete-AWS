@@ -1,0 +1,9 @@
+Install Nginx
+========================
+1)sudo dnf install nginx -y
+
+Start Nginx
+============
+2)sudo systemctl enable --now nginx
+3)sudo systemctl status nginx
+4)instance -> security -> security groups -> invound rules -> edit -> http:80 (all tcp) -> then run public ip of instance  

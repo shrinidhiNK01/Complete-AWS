@@ -1,14 +1,6 @@
-AWS EBS is a cloud-based storage service that
-provides durable, high-performance block
-storage for use with Amazon EC2 instances.
-
-It works like a virtual hard drive, allowing you
-to store and access data even when your EC2
-instances are stopped or terminated.
-
-For example, if you're hosting a MySQL or PostgreSQL
-database, you need reliable, high-performance
-storage to handle frequent read/write operations.
+AWS EBS is a cloud-based storage service that provides durable, high-performance block storage for use with Amazon EC2 instances.
+It works like a virtual hard drive, allowing you to store and access data even when your EC2 instances are stopped or terminated.
+For example, if you're hosting a MySQL or PostgreSQL database, you need reliable, high-performance storage to handle frequent read/write operations.
 
 EBS provides persistent, fast storage that ensures
 your data is saved even if the EC2 instance is stopped
@@ -18,8 +10,7 @@ Important points about EBS
 
 · Region & AZ specific
 · Build-in Redundancy
-. EBS volumes are automatically replicated within the same Availability
-Zone to prevent data loss due to hardware failures.
+. EBS volumes are automatically replicated within the same Availability Zone to prevent data loss due to hardware failures.
 
 . Different Volume Types
 gp2/3, io1/2, st1, sc1
@@ -66,4 +57,6 @@ now go to Volume>EBS ----> Look at the Available volume click on it ----> action
 
 connect EC2-backup ==> paste - 1) sudo file -s /dev/nvmelnlpl(it can be anything , replace it with the 1st name under main name) 
 2)sudo mkdir /mnt/mybackup
-3)sudo mount -o nouuid /dev/nvme1n1p1 /mnt/mybackup/
+3)sudo mount -o nouuid /dev/nvme1n1 /mnt/mybackup
+4)df -h 
+5)cd /mnt/mybackup/

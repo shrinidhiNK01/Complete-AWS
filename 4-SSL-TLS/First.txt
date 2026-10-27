@@ -1,0 +1,25 @@
+SSL / TLS
+===================
+Secure Sockets Layer/Transport Layer Security Cryptographic protocols designed to provide secure
+communication over a computer network.
+
+TLS is the successor to the SSL
+
+Encrypt data and ensure its
+
+· integrity,
+. confidentiality, and
+· authenticity
+
+between a client and server.
+
+Confidentiality = Data is only accessed by client/server = Encryption
+
+Integrity = Data is not modified in between = Hashing
+
+Authentication = Verifying the identity of the parties who they are supposed to be.= Certificates
+
+Encryption
+==============
+Converting plaintext information into a
+coded form (cipher text).
